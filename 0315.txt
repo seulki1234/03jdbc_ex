@@ -29,4 +29,4 @@ ojdbc11     21.8.0.0    jar (4.9 MB)->jdbc 개요에 나옴 ->프로젝트의 �
 
 
 vo-service-dao 이런식으로 흐름
-alt+shift+s generate
+alt+shift+s generate   
