@@ -1,0 +1,108 @@
+package edu.kh.jdbc.common;
+
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.util.Properties;
+
+public class JDBCTemplate {
+/*
+ * DB연결(Connection생성),
+ * 자동 커밋 off,
+ * 트랜잭션 제어,
+ * JDBC 객체 자원 반환 (close)
+ * 
+ * 이러한 JDBC 에서 반복 사용되는 코드를 모아둔 클래스
+ * 
+ *  *모든 필드, 메서드 static*
+ *  ->어디서든지 클래스명.필드명    / 클래스명. 메서드명
+ *     호출가능(별도 객체 생성 X)
+ * 
+ * */
+	
+	
+	
+	private static Connection conn = null;
+	
+	//Connection 객체 얻어오는거
+	//xml 파일 안쓰고 모든 정보를 getConnection 에 담아옴
+	//alt+shitf+j --> 객체 전용 주석???
+	
+	
+	/** DB 연결 정보를 담고있는 Connection 객체 생성 및 반환 메서드
+	 * @return  conn
+	 */
+	public static Connection getConnection() {
+		
+		
+		try {
+			
+			//현재 커넥션 객체가 없을경우->새커넥션 객체를 생성
+			if(conn == null || conn.isClosed()) {
+				//conn.isClosed() : 커넥션이 close 상태면 true 반환
+				
+				Properties prop = new Properties();
+				
+				prop.loadFromXML( new FileInputStream("driver.xml"));
+				
+				String driver = prop.getProperty("driver");
+				String url = prop.getProperty("url");
+				String user = prop.getProperty("user");
+				String password = prop.getProperty("password");
+				
+				Class.forName(driver);
+				
+				conn = DriverManager.getConnection(url, user, password);
+				
+				//개발자가 직접 트랜잭션 제어할 수 잇도록
+				//자동커밋 비활성화(==실패했을때 자동커밋하는거 막아주는 역할)
+				conn.setAutoCommit(false);
+				
+			}
+			
+		}catch(Exception e) {
+			System.out.println("[Connection 생성 중 예외발생]");
+			e.printStackTrace();
+		}
+		
+		return conn;
+	}
+	
+	
+	/**Connection 객체 자원 반환 메서드
+	 * @param conn
+	 */
+	public static void close(Connection conn) {
+		try{
+			
+			//열려잇을때 닫는 메서드임
+			//conn 이 null 아니고, closed 가 아니라면->닫기라는 명령문
+			if(conn != null && !conn.isClosed()) conn.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Statement 임포트시, java.sql 해야함
+	//Statement 써도 다형성 때문에 prepared Statement 도 사용가능
+	
+	/**Statement(부모), PreparedStatement(자식) 객체 자원 반환 메서드
+	 * (다형성, 동적바인딩)
+	 * @param stmt
+	 */
+	public static void close(Statement stmt) {
+		
+		try {
+			if(stmt != null && !stmt.isClosed()) stmt.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>driver.xml file</comment>
+
+<!-- ctrl + shift + /    마크업 주석언어  -->
+
+<!-- entry : key:value 한쌍 -->
+<entry key="driver">oracle.jdbc.driver.OracleDriver</entry>
+<entry key="url"></entry>
+<entry key="user"></entry>
+<entry key="password"></entry>
+
+
+</properties>

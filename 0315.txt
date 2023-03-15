@@ -1,0 +1,32 @@
+https://dbeaver.io/download/ 윈도우즈 설치
+-구글 드라입 에서 - 2DB-개발환경-수업용 script , kh 계정 생성 및 설정 넣기
+-데이터베이스-xe , sys, sysdba  1234
+-f2 로 이름바꿔주기(sys)
+-sys 계정상태로->  sys 연결해주고 생성 (kh 계정생성시)
+sys 연결 상태로->connet to a database 에서  xe kh, normal kh1234 로 만들기
+->수업용 스크립트는 kh 로 바꿔주고, ctrl+A ->alt+X -> skip all 해주기
+
+SQL*Plus: Release 11.2.0.2.0 Production on
+
+
+javase-17
+create module 해제하고 생성
+
+ 
+
+드라이버연결, 쿼리구문 만들때 xml file 이용 (효율적. 수많은 데이터중 하나가 오타났을때 
+매번 전체 데이터를 컴파일 하지않아도 되므로!!)
+
+VO : 객체생성을 위해 모아둔거
+DAO : db 로 보내기전 전처리 한거
+
+
+
+https://mvnrepository.com/
+ojdbc11     21.8.0.0    jar (4.9 MB)->jdbc 개요에 나옴 ->프로젝트의 프로퍼티스-자바 빌드패스
+-라이브러리-애드-ojdbc
+
+
+
+vo-service-dao 이런식으로 흐름
+alt+shift+s generate
